@@ -1,0 +1,342 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap");
+
+/* ============================================================
+   LinguaBridge Design System
+   Derived from the brand mark: two overlapping speech bubbles
+   (cyan "L" + emerald "B") on a teal -> deep navy field.
+
+   Keep this file as the single source of truth for tokens.
+   Every future page should reuse these variables/classes
+   rather than redefining colors or card styles inline.
+   ============================================================ */
+
+:root {
+  /* Core palette */
+  --lb-navy: #060f1c;
+  --lb-navy-soft: #0a1626;
+  --lb-teal: #07241f;
+  --lb-emerald: #34d399;
+  --lb-emerald-deep: #10b981;
+  --lb-cyan: #38bdf8;
+  --lb-cyan-deep: #0ea5e9;
+
+  /* Text */
+  --lb-text-primary: #f1f5f9;
+  --lb-text-secondary: #cbd5e1;
+  --lb-text-muted: #64748b;
+
+  /* Surfaces */
+  --lb-glass: rgba(15, 23, 35, 0.55);
+  --lb-glass-border: rgba(148, 163, 184, 0.14);
+  --lb-glass-border-hover: rgba(52, 211, 153, 0.45);
+
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+html,
+body,
+#root {
+  background-color: var(--lb-navy);
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: "Poppins", "Inter", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Page backdrop: gradient field echoing the brand artwork,
+   used behind every authenticated screen. */
+.lb-app-bg {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 50% at 15% 0%, rgba(52, 211, 153, 0.16), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 85% 10%, rgba(56, 189, 248, 0.10), transparent 60%),
+    linear-gradient(160deg, var(--lb-teal) 0%, var(--lb-navy-soft) 45%, var(--lb-navy) 100%);
+  color: var(--lb-text-primary);
+}
+
+/* Soft ambient glow orbs for atmosphere - used sparingly */
+.lb-glow-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Glass card base */
+.lb-card {
+  position: relative;
+  background: var(--lb-glass);
+  border: 1px solid var(--lb-glass-border);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Signature motif: dual-tone hairline edge referencing the
+   two overlapping speech-bubbles in the logo (cyan -> emerald). */
+.lb-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--lb-cyan) 0%, var(--lb-emerald) 100%);
+  opacity: 0.7;
+}
+
+.lb-card-interactive:hover {
+  border-color: var(--lb-glass-border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px -20px rgba(16, 185, 129, 0.35);
+}
+
+.lb-card-interactive:focus-visible {
+  outline: 2px solid var(--lb-emerald);
+  outline-offset: 2px;
+}
+
+/* Gradient text utility for key headline words */
+.lb-gradient-text {
+  background: linear-gradient(90deg, var(--lb-cyan) 0%, var(--lb-emerald) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Primary CTA button */
+.lb-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  border-radius: 0.9rem;
+  padding: 0.75rem 1.75rem;
+  background: linear-gradient(90deg, var(--lb-emerald-deep), var(--lb-cyan-deep));
+  color: #04140f;
+  box-shadow: 0 8px 24px -8px rgba(16, 185, 129, 0.5);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.lb-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -8px rgba(16, 185, 129, 0.65);
+  filter: brightness(1.05);
+}
+
+.lb-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  border-radius: 0.9rem;
+  padding: 0.75rem 1.75rem;
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid var(--lb-glass-border);
+  color: var(--lb-text-primary);
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+
+.lb-btn-secondary:hover {
+  border-color: var(--lb-glass-border-hover);
+  background: rgba(148, 163, 184, 0.14);
+  transform: translateY(-2px);
+}
+
+/* Progress bar fill animation */
+@keyframes lb-fill {
+  from {
+    width: 0%;
+  }
+}
+
+.lb-progress-fill {
+  animation: lb-fill 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Floating ambient drift for hero glows */
+@keyframes lb-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -16px) scale(1.06);
+  }
+}
+
+.lb-drift {
+  animation: lb-drift 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lb-drift,
+  .lb-progress-fill,
+  .lb-card-interactive,
+  .lb-btn-primary,
+  .lb-btn-secondary {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================
+   AnimatedMark - brand logo mark animation
+   ============================================================ */
+
+.lb-mark-stroke {
+  stroke-dashoffset: 0;
+  animation: none;
+}
+
+.lb-mark-circle {
+  stroke-dasharray: 289;
+  stroke-dashoffset: 289;
+  animation: lb-mark-draw 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.lb-mark-square {
+  stroke-dasharray: 221;
+  stroke-dashoffset: 221;
+  animation: lb-mark-draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.lb-mark-tail {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: lb-mark-draw 0.4s ease-out forwards;
+}
+
+.lb-mark-cyan {
+  stroke: var(--lb-cyan);
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5));
+}
+
+.lb-mark-emerald {
+  stroke: var(--lb-emerald);
+  filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.5));
+}
+
+@keyframes lb-mark-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.lb-mark-dot {
+  fill: var(--lb-emerald);
+  opacity: 0;
+  animation: lb-mark-dot-in 0.4s ease forwards, lb-mark-dot-pulse 1.8s ease-in-out 1.9s infinite;
+}
+
+@keyframes lb-mark-dot-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lb-mark-dot-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+.lb-mark-float {
+  animation: lb-mark-float-move 6s ease-in-out 1.6s infinite;
+  transform-origin: center;
+}
+
+@keyframes lb-mark-float-move {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+.lb-mark-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.lb-mark-glow-cyan {
+  width: 55%;
+  height: 55%;
+  top: 8%;
+  left: 4%;
+  background: rgba(56, 189, 248, 0.35);
+  animation: lb-mark-glow-pulse 5s ease-in-out infinite;
+}
+
+.lb-mark-glow-emerald {
+  width: 55%;
+  height: 55%;
+  bottom: 6%;
+  right: 4%;
+  background: rgba(52, 211, 153, 0.35);
+  animation: lb-mark-glow-pulse 5s ease-in-out 2.5s infinite;
+}
+
+@keyframes lb-mark-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lb-mark-stroke,
+  .lb-mark-dot,
+  .lb-mark-float,
+  .lb-mark-glow-cyan,
+  .lb-mark-glow-emerald {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Scrollbar - subtle, on-brand */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(52, 211, 153, 0.4);
+}
