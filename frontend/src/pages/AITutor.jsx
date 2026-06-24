@@ -49,7 +49,7 @@ function AITutor() {
     setCheckingGrammar(true);
 
     try {
-      const response = await axios.post("http://127.0.0.1:5000/grammar", {
+      const response = await axios.post("https://linguabridge-d46f.onrender.com/grammar", {
         text: sentence,
       });
 
@@ -76,7 +76,7 @@ function AITutor() {
     setAiTyping(true);
 
     try {
-      const response = await axios.post("http://127.0.0.1:5000/chat", {
+      const response = await axios.post("https://linguabridge-d46f.onrender.com/chat", {
         message: chatInput,
       });
 
